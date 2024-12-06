@@ -85,6 +85,9 @@ class objectParser():
 
         targetTopics = self.getTopics(*input_sensor_types)
         for topic in targetTopics:
+            if 'rgb_view' in topic:
+                continue
+            
             if topic.split("/")[-1] != "image":
                 remappings.append((
                     self.topicPrefix_ + "/" + topic,

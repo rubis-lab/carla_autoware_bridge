@@ -20,7 +20,9 @@ repositories:
     type: git
     url: https://github.com/autowarefoundation/autoware_msgs.git
     version: c2a82f3126b97fc911ba8cdd44682790b6265319
-
-
+  carla_autoware_bridge:
+    type: git
+    url: https://github.comTUMFTM/Carla-Autoware-Bridge.git
+    version: 3ab43fd652d1b519248157f799ee166301fb56d4
 
     

@@ -1,0 +1,10 @@
+pep8
+autopep8
+cmake_format==0.6.11
+pylint
+transforms3d
+pygame
+pexpect
+simple-pid==1.0.1
+numpy==1.23.5
+networkx
