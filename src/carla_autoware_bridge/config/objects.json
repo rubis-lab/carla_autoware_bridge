@@ -27,6 +27,7 @@
             "attributes": {
                 "color": "60, 60, 130"
             },
+            "spawn_point": {"x": 19.35, "y": -137.46, "z": 0.6, "roll": 0.0, "pitch": 0.0, "yaw": 0.32},
             "sensors": 
             [
                 {
@@ -36,7 +37,8 @@
                     "spawn_point": {"x": 1.80, "y": 0.25, "z": 1.65, "roll": 0.0, "pitch": 0.0, "yaw": 0.0},
                     "image_size_x": 800,
                     "image_size_y": 600,
-                    "fov": 90.0
+                    "fov": 90.0,
+                    "sensor_tick": 0.1
                 },
                 {
                     "type": "sensor.camera.rgb",
@@ -65,7 +67,8 @@
                     "upper_fov": 3.0,
                     "lower_fov": -27.0,
                     "rotation_frequency": 20,
-                    "noise_stddev": 0.0
+                    "noise_stddev": 0.0,
+                    "sensor_tick": 0.1
                 },
                 {
                     "type": "sensor.lidar.ray_cast",
@@ -78,7 +81,8 @@
                     "upper_fov": 3.0,
                     "lower_fov": -27.0,
                     "rotation_frequency": 20,
-                    "noise_stddev": 0.0
+                    "noise_stddev": 0.0,
+                    "sensor_tick": 0.1
                 },
                 {
                     "type": "sensor.other.gnss",

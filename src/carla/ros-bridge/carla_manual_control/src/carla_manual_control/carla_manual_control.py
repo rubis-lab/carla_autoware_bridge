@@ -74,6 +74,7 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import NavSatFix
 from std_msgs.msg import Bool
+from rclpy import qos
 
 # ==============================================================================
 # -- World ---------------------------------------------------------------------
@@ -94,7 +95,7 @@ class ManualControl(CompatibleNode):
 
         self.image_subscriber = self.new_subscription(
             Image, "/carla/{}/rgb_view/image".format(self.role_name),
-            self.on_view_image, qos_profile=10)
+            self.on_view_image, qos_profile=qos.qos_profile_sensor_data)
 
         self.collision_subscriber = self.new_subscription(
             CarlaCollisionEvent, "/carla/{}/collision".format(self.role_name),

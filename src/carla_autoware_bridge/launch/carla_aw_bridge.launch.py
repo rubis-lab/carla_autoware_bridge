@@ -236,12 +236,12 @@ def generate_launch_description():
             description='Time to wait for a successful connection to the CARLA server')
     town_arg = DeclareLaunchArgument(
             name='town',
-            default_value='Town01',
+            default_value='Town10HD',
             description=('Either use an available CARLA town (eg. "Town01")'
                          'or an OpenDRIVE file (ending in .xodr)'))
     view_arg = DeclareLaunchArgument(
             name='view',
-            default_value='false',
+            default_value='True',
             description=('Is third person view window is needed,'
                          'it can be used to manual control as well'))
     passive_arg = launch.actions.DeclareLaunchArgument(
