@@ -2,54 +2,19 @@
 
 # CARLA-Autoware-Bridge - Enables the use of CARLA for Testing and Development of Autoware Core/Universe
 [![Linux](https://img.shields.io/badge/os-ubuntu22.04-blue.svg)](https://www.linux.org/)
-[![Docker](https://badgen.net/badge/icon/docker?icon=docker&label)](https://www.docker.com/)
 [![ROS2humble](https://img.shields.io/badge/ros2-humble-blue.svg)](https://docs.ros.org/en/humble/index.html)
 
 </div>
 
-## Introduction
-The CARLA-Autoware-Bridge is a package to connect the CARLA simulator to Autoware Core/Universe with the help of the CARLA-ROS-Bridge. Currently the **latest Autoware Core/Universe** and **CARLA 0.9.15** is supported.
-### Youtube Demo Video + Quickstart
-| Demo                                            | Quickstart                                         |
-| ----------------------------------------------------- | ---------------------------------------------- |
-| [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/aEx8yBY06Jw/0.jpg)](https://youtu.be/aEx8yBY06Jw)                                       | [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/OmnMnvz949Y/0.jpg)](https://youtu.be/OmnMnvz949Y)                             |
+## Installation
+```bash
+# Pull carla_autoware_bridge
+git clone https://github.com/HoYongLee98/carla_autoware_bridge
 
-
-## Paper
-If you use this or the other associated repos, please cite our Paper:
-
-**CARLA-Autoware-Bridge: Facilitating Autonomous Driving Research
-with a Unified Framework for Simulation and Module Development**<br>Gemb Kaljavesi, Tobias Kerbl, Tobias Betz, Kirill Mitkovskii, Frank Diermeyer [[PDF](https://arxiv.org/abs/2402.11239)]
-
-```
-@inproceedings{carla_aw_bridge24,
-  title = {CARLA-Autoware-Bridge: Facilitating Autonomous Driving Research
-with a Unified Framework for Simulation and Module Development,
-  author = {Kaljavesi, Gemb and Kerbl, Tobias and Betz, Tobias and Mitkovskii, Kirill and Diermeyer, Frank},
-  year = {2024}
-}
-```
-
-The Paper is currently under review and only published as preprint.
-
-## Overview
-The simulation framework around the CARLA-Autoware-Bridge consists of the components:
-- carla-autoware-bridge: This repository holding the CARLA-Autoware-Bridge.
-- ros-bridge: Fork of the ros-bridge with our changes needed for the CARLA-Autoware-Bridge.
-- carla-t2: Vehicle model and sensor kit packages of the CARLA T2 2021 Vehicle for Autoware.
-- carla-ros-msgs:  Fork of the carla-ros-msg with our changes needed for the CARLA-Autoware-Bridge.
-
-## How to Build and Install the Bridge
-The easiest way to use the CARLA-Autoware-Bridge is to use our prebuilt docker image or to build the docker image by yourself. Bu we also provide a tutorial for local usage.
-
-#### Docker Workflow(Recommended)
-You can build the docker image by yourself or use the image from our github registry.
-```
-# Pull our latest docker image
-docker pull tumgeka/carla-autoware-bridge:latest
-
-# Alternatively build it yourself by running our build_docker.sh
-./docker/build_docker.sh
+# Build
+cd carla_autoware_bridge
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
 
 #### Local Workflow
@@ -58,18 +23,11 @@ Comming Soon. Until then, take a look at our Dockerfile.
 #### Maps
 Autoware needs the maps in a special lanelet2 format, we will upload all converted maps in the future under the following link: [carla-autoware-bridge/maps](https://syncandshare.lrz.de/getlink/fiBgYSNkmsmRB28meoX3gZ/)
 
-## General Installation and Usage
-The installation and usage of the CARLA-Autoware-Bridge is described in the following tutourial. In order to function properly the packages should be started in the order CARLA --> CARLA-Autoware-Bridge --> Autoware. 
-
 ### 1) CARLA
 We recommended to use the dockerized version of CARLA 0.9.15. To pull and start CARLA for usage with the CARLA-Autoware-Bridge follow the steps below.
 ```bash
-# Pull CARLA 0.9.15
-docker pull carlasim/carla:0.9.15
-```
-```bash
 # Start CARLA
-docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY carlasim/carla:0.9.15 /bin/bash ./CarlaUE4.sh -carla-rpc-port=1403 
+./CarlaUE4.sh -prefernvidia -quality-level=Low -RenderOffScreen
 ```
 Additional information:
 - `-prefernvidia` - use NVIDIA GPU for hardware acceleration
@@ -79,13 +37,9 @@ Additional information:
 ### 2) CARLA-Autoware-Bridge
 Run the carla-autoware-bridge
 ```bash
-# If you are using a docker start the docker first
-docker run -it -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp --network host tumgeka/carla-autoware-bridge:latest
-
 # Launch the bridge
-ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py port:=1403 town:=Town10HD
+ros2 launch carla_autoware_bridge carla_aw_bridge.launch.py
 ```
-
 Additional information:
 - `-port:=3000` to switch to a different CARLA port for it's RPC port
 - `-timeout:=10` to increase waiting time of loading a CARLA town before raising error
@@ -118,8 +72,3 @@ docker pull ghcr.io/autowarefoundation/autoware:humble-2024.01-cuda-amd64
 
 rocker --network=host -e RMW_IMPLEMENTATION=rmw_cyclonedds_cpp -e LIBGL_ALWAYS_SOFTWARE=1 --x11 --nvidia --volume /path/to/code -- ghcr.io/autowarefoundation/autoware-universe:humble-2024.01-cuda-amd64
 ```
-
-## Limitations and Future Work
-- We are currently working on making traffic light detection possible, at least for Town10HD
-- Autoware is a map-based approach and some maps may not allow some positions to be reached or some lane changes may not be possible. We are continuously trying to improve our map conversion
-- We aim to enhance future efficiency by ensuring that the bridge is Python-free, utilizing native DDS connection with the CARLA simulator
