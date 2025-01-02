@@ -128,34 +128,6 @@
                     "id": "control"
                 }
             ]
-        },
-        {
-            "type": "vehicle.tesla.model3",
-            "id": "obstacle",
-            "attributes": {
-                "color": "60, 60, 130"
-            },
-            "spawn_point": {"x": 40.0735, "y": -137.26, "z": 0.6, "roll": 0.0, "pitch": 0.0, "yaw": 0.0},
-            "sensors": 
-            [
-                {
-                    "type": "sensor.other.collision",
-                    "id": "collision",
-                    "spawn_point": {"x": 0.0, "y": 0.0, "z": 0.0}
-                },
-                {
-                    "type": "sensor.pseudo.tf",
-                    "id": "tf"
-                },
-                {
-                    "type": "sensor.pseudo.objects",
-                    "id": "objects"
-                },
-                {
-                    "type": "sensor.pseudo.odom",
-                    "id": "odometry"
-                }
-            ]
         }
     ]
 }
