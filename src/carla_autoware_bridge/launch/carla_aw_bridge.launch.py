@@ -232,7 +232,7 @@ def generate_launch_description():
             description='TCP port of the CARLA server')
     timeout_arg = DeclareLaunchArgument(
             name='timeout',
-            default_value='5',
+            default_value='20',
             description='Time to wait for a successful connection to the CARLA server')
     town_arg = DeclareLaunchArgument(
             name='town',
